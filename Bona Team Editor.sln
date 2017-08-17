@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bona Team Editor", "Bona Team Editor.csproj", "{773845B4-0546-3C97-8F03-AD9FDE0FC324}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bona Team Editor.Editor", "Bona Team Editor.Editor.csproj", "{B6E3B3F8-8F16-A62D-A926-44D1316CCB03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{773845B4-0546-3C97-8F03-AD9FDE0FC324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773845B4-0546-3C97-8F03-AD9FDE0FC324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773845B4-0546-3C97-8F03-AD9FDE0FC324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773845B4-0546-3C97-8F03-AD9FDE0FC324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6E3B3F8-8F16-A62D-A926-44D1316CCB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E3B3F8-8F16-A62D-A926-44D1316CCB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E3B3F8-8F16-A62D-A926-44D1316CCB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E3B3F8-8F16-A62D-A926-44D1316CCB03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
