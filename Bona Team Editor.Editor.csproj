@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -134,13 +136,18 @@
   <ItemGroup>
     <Compile Include="Assets\BonaTeamEditor\Editor\GeneralAssetPostprocessor.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\ConnectedClient.cs" />
+    <Compile Include="Assets\BonaTeamEditor\Editor\Network\Messages\SessionServerDescription.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkConstants.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkHeaders.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkMessage.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkMessageHelper.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkRouter.cs" />
+    <Compile Include="Assets\BonaTeamEditor\Editor\Network\NetworkSessionDescription.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\SessionClient.cs" />
+    <Compile Include="Assets\BonaTeamEditor\Editor\Network\SessionClientRecieve.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\Network\SessionHost.cs" />
+    <Compile Include="Assets\BonaTeamEditor\Editor\Network\SessionHostRecieve.cs" />
+    <Compile Include="Assets\BonaTeamEditor\Editor\Network\SessionHostSend.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\TeamEditorWindow.cs" />
     <Compile Include="Assets\BonaTeamEditor\Editor\UserData.cs" />
   </ItemGroup>

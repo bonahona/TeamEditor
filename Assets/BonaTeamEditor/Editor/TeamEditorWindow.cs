@@ -1,4 +1,5 @@
 ﻿using BonaTeamEditor.Network;
+using BonaTeamEditor.Network.Messages;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -24,13 +25,13 @@ public class TeamEditorWindow : EditorWindow
     private string ClientHostname;
     private string ClientPassword;
     private bool IsClientUserOpen;
-    private UserData ClientUserData = new UserData();
+    private UserData ClientUserData = new UserData { Username = "New User" };
 
     // Host settings
     private string HostSessionName;
     private string HostPassword;
     private bool IsHostUserOpen;
-    private UserData HostUserData = new UserData();
+    private UserData HostUserData = new UserData { Username = "New User" };
 
     private void OnEnable()
     {
@@ -73,13 +74,24 @@ public class TeamEditorWindow : EditorWindow
         } else {
             if (GUILayout.Button("Disconnect")) {
                 SessionClient.Disconnect();
-            }
-            EditorGUILayout.HelpBox(string.Format("Connected to: {0}", ClientHostname), MessageType.Info);
-
-            if (GUILayout.Button("Test")) {
-                SessionClient.Instance.SendUserData();
+            } else {
+                EditorGUILayout.HelpBox(string.Format("Connected to: {0}\n at {1}",  GetSessionName(SessionClient.Instance), ClientHostname), MessageType.Info);
+                RenderSessionDescriptionUsers(SessionClient.Instance.SessionDescription);
             }
         }
+    }
+
+    private string GetSessionName(SessionClient client)
+    {
+        if(client == null) {
+            return string.Empty;
+        }
+
+        if(client.SessionDescription == null) {
+            return string.Empty;
+        }
+
+        return client.SessionDescription.SessionName;
     }
 
     private void RenderClientData(UserData clientData)
@@ -113,13 +125,29 @@ public class TeamEditorWindow : EditorWindow
         }
     }
 
+    private void RenderSessionDescriptionUsers(SessionServerDescription sessionDescription)
+    {
+        if(sessionDescription == null) {
+            return;
+        }
+
+        foreach(var user in sessionDescription.UserData) {
+            RenderConnectedUser(user);
+        }
+    }
+
     private void RenderConnectedUsers()
     {
         if (SessionHost.IsHosting) {
             foreach (var user in SessionHost.Instance.ConnectedUsers) {
-                EditorGUILayout.LabelField(user.Username);
+                RenderConnectedUser(user);
             }
         }
+    }
+
+    private void RenderConnectedUser(UserData userData)
+    {
+        EditorGUILayout.LabelField(userData.Username);
     }
 
     public void OnHierarchiChanged(SceneView sceneView)

@@ -8,7 +8,7 @@ using TeamEditorExtensions;
 
 namespace BonaTeamEditor.Network
 {
-    public class SessionHost
+    public partial class SessionHost
     {
         public static SessionHost Instance { get; private set; }
 
@@ -40,8 +40,6 @@ namespace BonaTeamEditor.Network
 
         public UserData LocalUserData { get; set; }
         public List<UserData> ConnectedUsers { get; set; }
-
-        public NetworkRouter Router { get; set; }
 
         public SessionHost(string sessionName, string sessionPassword = "", UserData localUserData = null, IPAddress listeningAddress = null, int listeningPort = NetworkConstants.DefaultPort)
         {
@@ -77,10 +75,8 @@ namespace BonaTeamEditor.Network
             var listener = ar.AsyncState.To<TcpListener>();
             var connectedClient = new ConnectedClient { Socket = listener.EndAcceptSocket(ar) };
             connectedClient.SetupRecieve();
-            connectedClient.OnMessageRecieved += OnMessageRecieved;
+            connectedClient.OnMessageRecieved += OnMessageRecievedCallback;
             ConnectedClients.Add(connectedClient);
-
-            Debug.Log("Client connected");
         }
 
         private List<UserData> GetUpdatedConnectedUsers()
@@ -93,26 +89,6 @@ namespace BonaTeamEditor.Network
             }
 
             return result;
-        }
-
-
-        private void SetupRouter()
-        {
-            Router = new NetworkRouter();
-            Router["/userdata"] = HandleUserData;
-        }
-
-
-        private void OnMessageRecieved(NetworkMessage message, ConnectedClient client)
-        {
-            Router.Dispatch(message, client);
-        }
-
-        private void HandleUserData(NetworkMessage message, ConnectedClient client)
-        {
-            var userData = message.GetPayload<UserData>();
-            client.UserData = userData;
-            ConnectedUsers = GetUpdatedConnectedUsers();
         }
     }
 }

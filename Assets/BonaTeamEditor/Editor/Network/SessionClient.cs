@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BonaTeamEditor.Network.Messages;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
@@ -8,12 +9,17 @@ using UnityEngine;
 
 namespace BonaTeamEditor.Network
 {
-    public class SessionClient
+    public partial class SessionClient
     {
         public static SessionClient Instance { get; private set; }
 
         public static void Connect(string hostName, string sessionPassword, UserData userData, int port = NetworkConstants.DefaultPort)
         {
+            if(hostName == null || hostName == string.Empty) {
+                Debug.LogWarning("Hostname is empty");
+                return;
+            }
+
             Instance = new SessionClient(hostName, port, sessionPassword, userData);
         }
 
@@ -32,9 +38,12 @@ namespace BonaTeamEditor.Network
             }
         }
 
+        public event MessageRecieved OnMessageRecieved;
+
         public TcpClient TcpClient { get; set; }
         public string SessionPassword { get; set; }
         public UserData UserData { get; set; }
+        public SessionServerDescription SessionDescription { get; set; }
 
         public SessionClient(string hostName, int port, string sessionPassword, UserData userData)
         {
@@ -42,6 +51,10 @@ namespace BonaTeamEditor.Network
             UserData = userData;
 
             TcpClient = new TcpClient();
+
+            SetupRouter();
+            SetupRecieve();
+
             TcpClient.BeginConnect(hostName, port, new AsyncCallback(ConnectCallback), TcpClient);
         }
 
@@ -56,7 +69,8 @@ namespace BonaTeamEditor.Network
                 return;
             }
 
-            Debug.Log("Client connected to server");
+            OnMessageRecieved += OnMessageRecievedCallback;
+            SendUserData();
         }
 
         public void DisconnectClient()

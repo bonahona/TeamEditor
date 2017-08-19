@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class UserData
+namespace BonaTeamEditor.Network
 {
-    public string Username;
-    public Color Color = Color.white;
+    [System.Serializable]
+    public class UserData
+    {
+        public string Username;
+        public Color Color = Color.white;
+    }
 }
