@@ -11,12 +11,13 @@ namespace BonaTeamEditor.Network
         private void SetupRouter()
         {
             Router = new NetworkRouter();
+            Router["/dummy"] = (n, c) => { };           // Do nothing
             Router["/userdata"] = HandleUserData;
         }
 
         private void OnMessageRecievedCallback(NetworkMessage message, ConnectedClient client)
         {
-            Debug.LogFormat("Server Recieved {0} ", message.GetHeader(NetworkHeaders.Path));
+            TeamEditorConsole.LogFormat("Host Recieved {0} ", TeamEditorLogEntry.LogEntryType.Host, message.GetHeader(NetworkHeaders.Path));
             Router.Dispatch(message, client);
         }
 

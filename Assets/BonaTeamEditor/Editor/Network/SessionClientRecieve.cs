@@ -10,6 +10,8 @@ namespace BonaTeamEditor.Network
 {
     public partial class SessionClient
     {
+        public event MessageRecieved OnMessageRecieved;
+
         public byte[] SocketBuffer { get; set; }
         public NetworkRouter Router { get; set; }
 
@@ -43,7 +45,7 @@ namespace BonaTeamEditor.Network
 
         private void OnMessageRecievedCallback(NetworkMessage message, ConnectedClient client)
         {
-            Debug.LogFormat("Client Recieved {0} ", message.GetHeader(NetworkHeaders.Path));
+            TeamEditorConsole.LogFormat("Client Recieved {0} ", TeamEditorLogEntry.LogEntryType.Client, message.GetHeader(NetworkHeaders.Path));
             Router.Dispatch(message, client);
         }
 

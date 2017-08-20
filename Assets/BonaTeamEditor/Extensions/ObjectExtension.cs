@@ -122,8 +122,9 @@ namespace TeamEditorExtensions
             return function(item);
         }
 
-        public static T Do<T, U>(this T item, Func<T, U> function)
+        public static T Do<T>(this T item, Action<T> function)
         {
+            function.Invoke(item);
             return item;
         }
 

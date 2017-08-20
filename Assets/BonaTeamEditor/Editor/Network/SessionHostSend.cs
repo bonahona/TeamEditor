@@ -17,6 +17,7 @@ namespace BonaTeamEditor.Network
 
         public void SendMessage(ConnectedClient client, NetworkMessage message)
         {
+            TeamEditorConsole.LogFormat("Host Sent {0} ", TeamEditorLogEntry.LogEntryType.Host, message.GetHeader(NetworkHeaders.Path));
             var byteBuffer = message.ToByteArray();
             client.Socket.BeginSend(byteBuffer, 0, byteBuffer.Length, SocketFlags.None, new AsyncCallback(GenericSendCallback), client.Socket);
         }

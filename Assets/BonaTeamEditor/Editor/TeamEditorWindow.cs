@@ -8,12 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class TeamEditorWindow : EditorWindow
 {
-    public const string WindowBasePath = "Window/Bona Team Editor/Settings";
     public static readonly string[] WindowTabs = { "Client", "Host" };
     public const int ClientTabIndex = 0;
     public const int HostTabIndex = 1;
 
-    [MenuItem(WindowBasePath)]
+    [MenuItem(TeamEditorConstants.WindowSettingsBasePath)]
     public static void ShowSettingsWindow()
     {
         GetWindow<TeamEditorWindow>().Show();
@@ -25,13 +24,13 @@ public class TeamEditorWindow : EditorWindow
     private string ClientHostname;
     private string ClientPassword;
     private bool IsClientUserOpen;
-    private UserData ClientUserData = new UserData { Username = "New User" };
+    private UserData ClientUserData = new UserData { Username = "New User", Color = Color.red };
 
     // Host settings
     private string HostSessionName;
     private string HostPassword;
     private bool IsHostUserOpen;
-    private UserData HostUserData = new UserData { Username = "New User" };
+    private UserData HostUserData = new UserData { Username = "New User", Color = Color.blue };
 
     private void OnEnable()
     {
@@ -77,6 +76,10 @@ public class TeamEditorWindow : EditorWindow
             } else {
                 EditorGUILayout.HelpBox(string.Format("Connected to: {0}\n at {1}",  GetSessionName(SessionClient.Instance), ClientHostname), MessageType.Info);
                 RenderSessionDescriptionUsers(SessionClient.Instance.SessionDescription);
+            }
+
+            if(GUILayout.Button("Send Dummy")) {
+                SessionClient.Instance.SendDummy();
             }
         }
     }

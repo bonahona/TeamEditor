@@ -38,8 +38,6 @@ namespace BonaTeamEditor.Network
             }
         }
 
-        public event MessageRecieved OnMessageRecieved;
-
         public TcpClient TcpClient { get; set; }
         public string SessionPassword { get; set; }
         public UserData UserData { get; set; }
@@ -80,16 +78,6 @@ namespace BonaTeamEditor.Network
             }
 
             TcpClient.EndConnect(null);
-        }
-
-        public void SendUserData()
-        {
-            TcpClient.Client.Send(NetworkMessageHelper.CreateUserMessage(UserData).ToByteArray());
-        }
-
-        public void DisconnectCallback(IAsyncResult ar)
-        {
-
         }
     }
 }
